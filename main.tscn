@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bgiafpmrawq3o"]
+
+[ext_resource type="PlaneMesh" uid="uid://cy2uv7tr6vcym" path="res://ground.tres" id="1_0xm2m"]
+[ext_resource type="Material" uid="uid://tad0do8eca4i" path="res://ground_material.tres" id="2_h2yge"]
+[ext_resource type="Shader" uid="uid://b07jajol26lkc" path="res://defer_terrain.gdshader" id="4_1bvp3"]
+
+[sub_resource type="Environment" id="Environment_upj3l"]
+background_mode = 1
+background_color = Color(0.9764706, 0.8980392, 0.7372549, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_h2yge"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
+render_priority = 0
+shader = ExtResource("4_1bvp3")
+shader_parameter/pixel_counts = Vector2(1980, 1080)
+shader_parameter/blur_offset = Vector2(2, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mycd"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_lquwl")
+shader = ExtResource("4_1bvp3")
+shader_parameter/pixel_counts = Vector2(1980, 1080)
+shader_parameter/blur_offset = Vector2(0, 2)
+
+[node name="Node3D" type="Node3D" unique_id=1037059709]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=198529034]
+environment = SubResource("Environment_upj3l")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1065581602]
+transform = Transform3D(0.5091465, 0.7147767, 0.47944146, -0.86067986, 0.42283562, 0.28361985, 0, -0.5570496, 0.8304791, 0, 48.07839, 0)
+shadow_enabled = true
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 163.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=69917218]
+mesh = ExtResource("1_0xm2m")
+surface_material_override/0 = ExtResource("2_h2yge")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=355296097]
+transform = Transform3D(1, 0, 0, 0, 0.761197, 0.64852077, 0, -0.64852077, 0.761197, 6.735775, 44.579193, 39.288025)
+
+[node name="DeferTerrainDraw" type="MeshInstance3D" parent="Camera3D" unique_id=109504152]
+visible = false
+cast_shadow = 0
+extra_cull_margin = 5675.18
+ignore_occlusion_culling = true
+mesh = SubResource("QuadMesh_h2yge")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_7mycd")

@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://tad0do8eca4i"]
+
+[ext_resource type="Shader" uid="uid://gsdhffjmtns4" path="res://terrain_outline.gdshader" id="1_w23mk"]
+[ext_resource type="Texture2D" uid="uid://djyyxi2gpgnn" path="res://new_noise_texture_2d.tres" id="2_k2fmq"]
+[ext_resource type="Shader" uid="uid://cvppm2gq6djto" path="res://terrain.gdshader" id="3_ctcy6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w23mk"]
+render_priority = 0
+shader = ExtResource("1_w23mk")
+shader_parameter/height_map = ExtResource("2_k2fmq")
+shader_parameter/noise_scale = 45.0
+shader_parameter/finite_diff = 0.01
+shader_parameter/terrain_scale = 0.01
+shader_parameter/thickness = 0.05
+shader_parameter/thickness_pow = 0.585
+shader_parameter/far_dist = 125.23
+shader_parameter/near_dist = 30.0
+shader_parameter/height_fade_limit = 10.335
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_w23mk")
+shader = ExtResource("3_ctcy6")
+shader_parameter/height_map = ExtResource("2_k2fmq")
+shader_parameter/noise_scale = 45.0
+shader_parameter/finite_diff = 0.01
+shader_parameter/terrain_scale = 0.01
+shader_parameter/far_dist = 150.0
+shader_parameter/near_dist = 10.0
+shader_parameter/height_fade_limit = 31.415
+shader_parameter/color = Color(0.9843137, 0.92941177, 0.8117647, 1)
