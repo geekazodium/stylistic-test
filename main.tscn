@@ -2,7 +2,9 @@
 
 [ext_resource type="PlaneMesh" uid="uid://cy2uv7tr6vcym" path="res://ground.tres" id="1_0xm2m"]
 [ext_resource type="Material" uid="uid://tad0do8eca4i" path="res://ground_material.tres" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://cmu7kcc8q2kuq" path="res://copy_camera_pos.gd" id="3_1bvp3"]
 [ext_resource type="Shader" uid="uid://b07jajol26lkc" path="res://defer_terrain.gdshader" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://dkrg2kx1jebu2" path="res://debug_camera.gd" id="4_lquwl"]
 
 [sub_resource type="Environment" id="Environment_upj3l"]
 background_mode = 1
@@ -34,12 +36,16 @@ shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 163.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=69917218]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=69917218 node_paths=PackedStringArray("copy_source")]
 mesh = ExtResource("1_0xm2m")
 surface_material_override/0 = ExtResource("2_h2yge")
+script = ExtResource("3_1bvp3")
+snap_scale = 4.0
+copy_source = NodePath("../Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=355296097]
 transform = Transform3D(1, 0, 0, 0, 0.761197, 0.64852077, 0, -0.64852077, 0.761197, 6.735775, 44.579193, 39.288025)
+script = ExtResource("4_lquwl")
 
 [node name="DeferTerrainDraw" type="MeshInstance3D" parent="Camera3D" unique_id=109504152]
 visible = false
